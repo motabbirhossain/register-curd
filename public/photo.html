@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Change</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+<body>
+    <section class="profile-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="profile-section__group">
+                        <div class="profile-section__group__profile">
+                            <img src="assets/img/user-2.png" class="img-fluid" alt="User Photo">
+                            <h2 class="profile-section__group__title">Motabbir Hossain</h2>
+                        </div><!-- /.profile-section__group__profile -->
+                        <ul class="profile-section__group__list list-unstyled">
+                            <li class="list-group-item"><a href="profile.html"><i class="fas fa-user"></i> Profile Options</a></li>
+                            <li class="list-group-item"><a href="edit.html"><i class="fas fa-edit"></i> Edit Options</a></li>
+                            <li class="list-group-item"><a href="paasword.html"><i class="fas fa-key"></i> Password</a></li>
+                            <li class="list-group-item active"><a href="photo.html"><i class="fas fa-camera"></i> Photo Options</a></li>
+                            <li class="list-group-item"><a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        </ul>
+                    </div><!-- /.profile-section__group -->
+                </div>
+                <div class="col-md-7 text-center">
+                    <div class="profile-section__group">
+                        <h3>Edit Photo</h3>
+                        <form action="/upload" method="post" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label for="photo" class="form-label">Choose a photo to upload:</label>
+                                <input type="file" class="form-control" id="photo" name="photo" accept="image/*">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Upload Photo</button>
+                        </form>
+                    </div><!-- /.profile-section__group -->
+                </div>
+            </div>
+        </div>
+    </section><!-- /.login-form -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

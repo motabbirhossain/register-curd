@@ -1,0 +1,236 @@
+/*=============== BASE ===============*/
+*{
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+
+body,
+input,
+button{
+	font-family: var(--body-font);
+	font-size: var(--normal-font-size);
+}
+
+a{
+	text-decoration: none;
+}
+
+img{
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+
+//Login Form
+.login-form{
+	&__card{
+		width: 100%;
+		max-width: 900px;
+		margin: 0 auto;
+		padding: 40px 20px;
+		border-radius: 5px;
+		box-shadow: 0 0 10px rgba(0,0,0,0.1);
+		background-color: var(--white);
+		&__title{
+			text-align: left;
+			font-style: normal;
+			margin-bottom: 20px;
+			font-size: 45px;
+			text-transform: capitalize;
+			color: var(--black);
+			font-weight: 900;
+			margin-bottom: 20px;
+		}
+	}
+}
+
+.login-form-item{
+	margin-bottom: 20px;
+	.login-form-item__group + .login-form-item__group{
+		margin-top: 20px;
+	}
+	label{
+		display: block;
+		font-size: 16px;
+		font-weight: 500;
+		color: var(--black);
+		margin-bottom: 5px;
+		text-transform: capitalize;
+	}
+	input[type="text"],
+	input[type="password"],
+	input[type="email"]{
+		width: 100%;
+		padding: 10px;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+		font-size: 16px;
+		height: 55px;
+	}
+	button{
+		width: 100%;
+		padding: 10px;
+		border: none;
+		border-radius: 5px;
+		font-size: 16px;
+		height: 55px;
+		background-color: #000;
+		color: var(--white);
+		cursor: pointer;
+		text-transform: capitalize;
+		&:hover{
+			background-color: #333;
+		}
+	}
+	&__bottom{
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 20px;
+		a{
+			color: #000;
+			font-size: 16px;
+			text-transform: capitalize;
+			font-weight: 500;
+			transition: all .3s ease-in-out;
+			&:hover{
+				text-decoration: underline;
+			}
+		}
+	}
+	&__link{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+		a{
+			width: 35px;
+			height: 35px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 50%;
+			background-color: #000;
+			color: var(--white);
+		}
+	}
+}
+
+
+.profile-section{
+	position: relative;
+	z-index: 1;
+	.container{
+		max-width: 900px;
+		margin: 0 auto;
+	}
+	&__group{
+		position: relative;
+		border-radius: 5px;
+		background-color: #fff;
+		padding: 30px;
+		box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+		&__profile{
+			text-align: center;
+			img{
+				margin-bottom: 20px;
+				width: 100px;
+				height: 100px;
+				height: auto;
+				margin-left: auto;
+				margin-right: auto;
+				border-radius:1000px;
+				object-fit: cover;
+			}
+		}
+		&__title{
+			text-align: center;
+			font-size: 24px;
+			font-weight: 500;
+			color: var(--black);
+			margin-bottom: 20px;
+			text-transform: capitalize;
+		}
+		&__title-two{
+			text-align: start;
+			font-size: 35px;
+			font-weight: 500;
+			color: var(--black);
+			margin-bottom: 20px;
+			text-transform: capitalize;
+		}
+		&__list{
+			list-style: none;
+			margin-bottom: 0;
+			li{
+				line-height: normal;
+				font-size: 16px;
+				color: var(--black);
+				margin-bottom: 10px;
+				padding: 10px 0;
+				border-radius: 5px;
+				transition: all .3s ease-in-out;
+				cursor: pointer;
+				a{
+					color: inherit;
+					display: block;
+				}
+				&:last-of-type{
+					margin-bottom: 0;
+				}
+				&:hover, &.active{
+					padding: 10px 20px;
+					background-color: #a01c1c;
+					color: var(--white);
+				}
+
+				i{
+					line-height: normal;
+				}
+			}
+		}
+		.profile-form-group + .profile-form-group{
+			margin-top: 20px;
+		}
+		.profile-form-group{
+			label{
+				text-align: left;
+				display: block;
+				font-size: 16px;
+				font-weight: 500;
+				color: var(--black);
+				margin-bottom: 5px;
+				text-transform: capitalize;
+			}
+			input[type="text"],
+			input[type="password"],
+			input[type="email"],
+			input[type="tel"]{
+				width: 100%;
+				padding: 10px;
+				border: 1px solid #ccc;
+				border-radius: 5px;
+				font-size: 16px;
+				height: 55px;
+			}
+		}
+		button{
+			margin-top: 20px;
+			width: 100%;
+			padding: 10px;
+			border: none;
+			border-radius: 5px;
+			font-size: 16px;
+			height: 55px;
+			background-color: #000;
+			color: var(--white);
+			cursor: pointer;
+			text-transform: capitalize;
+			&:hover{
+				background-color: #333;
+			}
+		}
+	}
+}
