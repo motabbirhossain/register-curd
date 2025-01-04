@@ -1,47 +1,41 @@
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const User = require('../models/user');
-const dotenv = require('dotenv');
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import User from '../models/User.js';
+import dotenv from 'dotenv';
 dotenv.config();
+import { fileURLToPath } from 'url';
+import path from 'path';
+import { hashPassword } from '../utility/hash.js';
+import { validate } from '../utility/validate.js';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+/**
+ * Register user
+ * version: 1.0.0
+ */
+export const regstionPage = async (req, res) => {
+  res.render('register');
+};
 
 /**
  * Register a new user
  * version: 1.0.0
  */
-const regstionUser = async (req, res) => {
-
-  const { name, username, email, password} = req.body;
-
-  //Check if all required fields are provided
-  if (!username || !email || !password || !name) {
-    return res.status(400).json({
-      message: "Username, email, name and password are required",
-    });
-  }
-
+export const regstionUser = async (req, res) => {
   try {
-    // Check if salt is generated correctly
-    const salt = bcrypt.genSaltSync(10);
-
-    // Hash the password with the salt
-    const hashedPassword = bcrypt.hashSync(password, salt);
-
-    // Create the user in the database
-    await User.create({
-      name,
-      username,
-      email,
-      password: hashedPassword
-    });
-
-    res.status(200).json({
-      message: "User created successfully",
-    });
+    const { name, email, password } = req.body;
+    // Check for missing fields
+    if (!name || !email || !password) {
+      validate('All fields are required', '/register', req, res);
+    } else {
+      const hashedPassword = await hashPassword(password);
+      const user = await User.create({ name, email, password: hashedPassword });
+      validate('User registered successfully', '/login', req, res);
+    }
   } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      message: "Error creating user",
-    });
+    console.error('Error during registration:', error);
+    validate('User registration failed', '/register', req, res);
   }
 };
 
@@ -49,47 +43,39 @@ const regstionUser = async (req, res) => {
  * Login user
  * version: 1.0.0
  */
-const loginUser = async (req, res) => {
-  const { email, password } = req.body;
+export const loginPage = async (req, res) => {
+  res.render('login');
+};
 
+/**
+ * Login user
+ * version: 1.0.0
+ */
+export const loginUser = async (req, res) => {
   try {
-    let user = await User.findOne({ email });
-    if (!user) {
-      return res.status(400).json({ msg: 'Invalid Credentials' });
-    }
+    const { email, password } = req.body;
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(400).json({ msg: 'Invalid Credentials' });
-    }
-
-    const payload = {
-      user: {
-        id: user.id
-      }
-    };
-
-    jwt.sign(
-      payload,
-      process.env.JWT_SECRET,
-      { expiresIn: '1h' },
-      (err, token) => {
-        if (err) {
-          console.error(err.message);
-          return res.status(500).json({
-            msg: 'Error generating token'
-          });
+    // Check for missing fields
+    if (!email || !password) {
+      validate('All fields are required', '/login', req, res);
+    } else {
+      const loginUser = await User.find().where('email').equals(email);
+      if (!loginUser[0]) {
+        validate('User Not Found', '/login', req, res);
+      } else {
+        const userPass = bcrypt.compareSync(password, loginUser[0].password);
+        console.log(userPass);
+        if (!userPass) {
+          validate('Wrong Password', '/login', req, res);
+        } else {
+          req.session.user = loginUser[0]
+          validate('Login Successfully', '/', req, res);
         }
-
-        res .status(200) .cookie('token', token) .json({
-          msg: 'Login successful',
-          token
-        });
       }
-    );
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server error');
+    }
+  } catch (error) { 
+    console.error('Error during registration:', error); 
+    validate('User registration failed', '/login', req, res);
   }
 };
 
@@ -98,39 +84,16 @@ const loginUser = async (req, res) => {
  * LoggInUser
  * version: 1.0.0
  */
-const logginUser = async (req, res) => {
-  try {
-
-    const token = req.cookies.token;
-     if (!token){
-       return res.status(400).json({ msg: 'Invalid User' });
-     }
-    const verify = jwt.verify(token, process.env.JWT_SECRET);
-    if (verify){
-      const user = await User.findById(verify.user.id).select('-password')
-
-      // Respond with user details
-      return res.status(200).json({ user });
-    }
-  }catch (error){
-    res.state(400).json({
-      error: error.message
-    })
-  }
+export const ProfilePage = async (req, res) => {
+  res.render('profile');
 };
 
 /**
  * Logout user
  * version: 1.0.0
  */
-const logoutUser = (req, res) => {
-  // Your logout logic here
-  res.send('User logged out');
-};
 
-module.exports = {
-  loginUser,
-  logoutUser,
-  regstionUser,
-  logginUser
+export const logoutPage = (req, res) => {
+  req.session.user = null;
+  validate('Loge Out Successfully', '/register', req, res);
 };

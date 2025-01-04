@@ -1,17 +1,27 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const { regstionUser, loginUser, logoutUser, logginUser } = require('../controllers/userController');
+import {
+  regstionPage,
+  loginPage,
+  logoutPage,
+  ProfilePage,
+  regstionUser,
+  loginUser
+} from '../controllers/userController.js';
 
-// Registration route
+// Profile Page Route
+router.get('/', ProfilePage);
+
+// Registration Route
+router.get('/register', regstionPage);
 router.post('/register', regstionUser);
 
-// Login route
+// Login Route
+router.get('/login', loginPage);
 router.post('/login', loginUser);
 
-// Login Me Router
-router.get('/me', logginUser);
+// Logout Route
+router.get('/logout', logoutPage);
 
-// Logout route
-router.post('/logout', logoutUser);
+export default router;
 
-module.exports = router;

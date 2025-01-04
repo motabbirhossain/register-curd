@@ -1,0 +1,47 @@
+<section class="login-form">
+    <div class="container">
+        <div class="login-form__card card">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-lg-6">
+                    <div class="login-form__image">
+                        <img src="assets/img/login-image.jpg" alt="Login Form Image" class="img-fluid">
+                    </div><!-- /.login-form__image -->
+                </div><!-- /.col-lg-6 -->
+                <div class="col-lg-6">
+                    <div class="login-form__card__content">
+                        <div class="login-form__card__title">Register Form</div>
+                        <% if (message) { %>
+                            <p><%= message %></p>
+                        <% } %>
+                        <form class="login-form-item" action="/register" method="POST">
+                            <div class="login-form-item__group">
+                                <label for="text" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="text" name="name">
+                            </div>
+                            <div class="login-form-item__group">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email">
+                            </div>
+                            <div class="login-form-item__group">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" name="password">
+                            </div>
+                            <div class="login-form-item__group">
+                                <button type="submit" class="btn btn-primary">Register</button>
+                            </div><!-- /.login-form-item__group -->
+                        </form>
+                        <div class="login-form-item__bottom">
+                            <a href="#" class="login-form-item__bottom__link">Forgot Password?</a>
+                            <a href="/login" class="login-form-item__bottom__link">Log In</a>
+                        </div><!-- /.login-form-item__bottom -->
+                        <div class="login-form-item__link">
+                            <a href=""><i class="fab fa-facebook"></i></a>
+                            <a href=""><i class="fab fa-google"></i></a>
+                            <a href=""><i class="fab fa-github"></i></a>
+                        </div><!-- /.login-form-item__link -->
+                    </div><!-- /.login-form__card__content -->
+                </div>
+            </div>
+        </div><!-- /.login-form__card -->
+    </div>
+</section><!-- /.login-form -->
